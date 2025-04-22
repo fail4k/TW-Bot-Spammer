@@ -61,8 +61,11 @@
 
 				<div class="settings-section">
 					<div class="input-group" id="messageSettings">
-						<label for="botMessage">Сообщение</label>
-						<input type="text" id="botMessage" value="Attack by fail4k" />
+						<button id="showMessageModalBtn" class="broadcast-btn message-btn">
+							<span class="btn-icon">✉</span>
+							<span class="btn-label">Сообщение</span>
+						</button>
+						<input type="hidden" id="botMessage" value="Attack by fail4k" />
 					</div>
 
 					<div class="standard-settings">
@@ -160,6 +163,25 @@
 			</div>
 		</div>
 
+		<div id="messageTextModal" class="modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2>Текст сообщения</h2>
+					<span class="close">&times;</span>
+				</div>
+				<div class="modal-body">
+					<div class="input-group">
+						<label for="messageTextInput">Текст сообщения (макс. 130 символов):</label>
+						<textarea id="messageTextInput" maxlength="130" rows="4" placeholder="Введите текст сообщения...">Attack by fail4k</textarea>
+						<div class="char-counter"><span id="messageCharCount">0</span>/130</div>
+					</div>
+					<div class="modal-footer">
+						<button id="saveMessageTextBtn" class="btn btn-start">Сохранить</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div id="serverListModal" class="modal">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -178,5 +200,53 @@
 			</div>
 		</div>
 		<script src="renderer.js"></script>
+		<script>
+			// Код для модального окна с сообщением
+			document.addEventListener('DOMContentLoaded', function() {
+				const showMessageBtn = document.getElementById('showMessageModalBtn');
+				const messageTextModal = document.getElementById('messageTextModal');
+				const messageTextInput = document.getElementById('messageTextInput');
+				const saveMessageTextBtn = document.getElementById('saveMessageTextBtn');
+				const messageCharCount = document.getElementById('messageCharCount');
+				const botMessage = document.getElementById('botMessage');
+				
+				// Обработчик для кнопки открытия модального окна
+				showMessageBtn.addEventListener('click', function() {
+					// Копируем значение из скрытого поля в текстовую область
+					messageTextInput.value = botMessage.value;
+					updateCharCount();
+					messageTextModal.style.display = 'block';
+				});
+				
+				// Обработчик для кнопки "Сохранить"
+				saveMessageTextBtn.addEventListener('click', function() {
+					// Копируем значение из текстовой области в скрытое поле
+					botMessage.value = messageTextInput.value;
+					messageTextModal.style.display = 'none';
+				});
+				
+				// Обработчик для счетчика символов
+				messageTextInput.addEventListener('input', updateCharCount);
+				
+				function updateCharCount() {
+					messageCharCount.textContent = messageTextInput.value.length;
+				}
+				
+				// Закрытие модального окна по клику на крестик
+				messageTextModal.querySelector('.close').addEventListener('click', function() {
+					messageTextModal.style.display = 'none';
+				});
+				
+				// Закрытие модального окна по клику вне окна
+				window.addEventListener('click', function(event) {
+					if (event.target === messageTextModal) {
+						messageTextModal.style.display = 'none';
+					}
+				});
+				
+				// Инициализация счетчика символов
+				updateCharCount();
+			});
+		</script>
 	</body>
 </html>

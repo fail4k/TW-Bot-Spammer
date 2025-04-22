@@ -15,6 +15,7 @@ let activeBots = []
  * @param {string} nickname - Базовый никнейм бота
  * @returns {Promise<Object>} - Объект бота
  */
+
 async function createBot(serverIp, serverPort, nickname) {
 	if (!serverIp || !serverPort) {
 		throw new Error('Не указан IP или порт сервера')

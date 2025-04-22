@@ -22,6 +22,9 @@
 html,
 body {
 	overflow: hidden;
+	height: 100%;
+	margin: 0;
+	padding: 0;
 }
 
 body {
@@ -29,6 +32,8 @@ body {
 	background-color: var(--bg-color);
 	color: var(--text-color);
 	height: 100vh;
+	margin: 0;
+	padding: 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -47,7 +52,8 @@ body {
 	gap: 5px;
 	box-shadow: 0 0 30px rgba(0, 255, 170, 0.1);
 	overflow: hidden;
-	max-height: 95vh;
+	height: 100vh;
+	max-height: 100vh;
 }
 
 .header {
@@ -263,6 +269,13 @@ body {
 
 #messageSettings.active {
 	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+#messageSettings .broadcast-btn {
+	width: 100%;
+	margin-bottom: 5px;
 }
 
 /* Удаляем все стили скроллбара */
@@ -279,6 +292,16 @@ body {
 .broadcast-active-mode .settings-section {
 	min-height: auto;
 	padding: 12px;
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+.broadcast-active-mode .content {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	overflow: visible;
 }
 
 /* Увеличиваем размеры контролов в режиме рассылки */
@@ -349,7 +372,9 @@ body {
 }
 
 #broadcastSettings.active {
-	display: block;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
 }
 
 .char-counter {
@@ -509,6 +534,7 @@ textarea#serverList {
 	display: flex;
 	gap: 8px;
 	margin-bottom: 8px;
+	flex-shrink: 0;
 }
 
 .broadcast-btn {
@@ -705,6 +731,7 @@ textarea#broadcastMessage:focus {
 
 .broadcast-options {
 	margin-bottom: 15px;
+	flex-shrink: 0;
 }
 
 .broadcast-info {
@@ -725,7 +752,8 @@ textarea#broadcastMessage:focus {
 
 /* Адаптация контейнера в режиме рассылки */
 .broadcast-active-mode .container {
-	height: auto;
+	height: 100vh;
+	max-height: 100vh;
 	justify-content: normal;
 }
 
@@ -819,6 +847,7 @@ textarea#broadcastMessage:focus {
 	padding: 5px;
 	font-size: 12px;
 }
+
 .turbo-tooltip {
 	position: absolute;
 	background: rgba(0, 0, 0, 0.8);
@@ -857,4 +886,57 @@ textarea#broadcastMessage:focus {
 	15% { opacity: 1; transform: translateY(0); }
 	85% { opacity: 1; transform: translateY(0); }
 	100% { opacity: 0; transform: translateY(-10px); }
+}
+
+.broadcast-active-mode #broadcastSettings {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+
+.broadcast-active-mode .broadcast-controls, 
+.broadcast-active-mode .broadcast-options {
+	flex-shrink: 0;
+}
+
+/* Стили для текстовой области в модальном окне сообщений */
+textarea#messageTextInput {
+	width: 100%;
+	resize: vertical;
+	min-height: 80px;
+	padding: 8px;
+	border: 1px solid var(--border-color);
+	background-color: var(--bg-color);
+	color: var(--text-color);
+	border-radius: 6px;
+	font-family: inherit;
+	font-size: 13px;
+}
+
+textarea#messageTextInput:focus {
+	outline: none;
+	border-color: var(--primary-color);
+	box-shadow: 0 0 0 2px rgba(0, 255, 170, 0.1);
+}
+
+/* Темный стиль для модального окна сообщений */
+#messageTextModal .modal-content {
+	background-color: var(--secondary-bg);
+	border-color: var(--border-color);
+}
+
+#messageTextModal .modal-header {
+	border-bottom-color: var(--border-color);
+}
+
+#messageTextModal .modal-footer {
+	border-top-color: var(--border-color);
+}
+
+#messageTextModal label {
+	color: var(--primary-color);
+}
+
+#messageCharCount {
+	color: #666;
 }
